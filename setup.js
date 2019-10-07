@@ -12,7 +12,8 @@ const readFileAsync = util.promisify(fs.readFile);
 async function main() {
   console.info(`Set upp gagnagrunn á ${connectionString}`);
   // droppa töflum ef til
-  await query('DROP TABLE IF EXISTS applications');
+  await query('DROP TABLE IF EXISTS houses');
+  await query('DROP TABLE IF EXISTS employees');
   await query('DROP TABLE IF EXISTS users');
   console.info('Töflum eytt');
 

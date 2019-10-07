@@ -16,3 +16,199 @@ html { /* stylelint-disable-line */
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
 }
+
+input,
+select,
+textarea,
+button {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+}
+
+h1, h2 {
+  margin-bottom: 1rem;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+main {
+  margin: 2rem;
+}
+
+table{
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+th, td {
+  padding: 0.5rem;
+}
+
+tr:nth-child(even){
+  background-color: Gainsboro;
+}
+
+
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.field label {
+  font-size: 1.375rem;
+}
+
+.field input,
+.field textarea {
+  padding: 8px;
+  max-width: 800px;
+
+  border: 1px solid #888;
+  border-radius: 3px;
+}
+
+.field textarea {
+  flex: 1;
+  min-height: 6rem;
+}
+
+.field--invalid input,
+.field--invalid textarea {
+  border-color: #855;
+  background-color: #fbb;
+}
+
+.field--radio {
+  margin-left: -1rem;
+  padding: 1rem;
+}
+
+.field--radio label {
+  flex: initial;
+  align-items: center;
+  display: flex;
+}
+
+.field--radio.field--invalid {
+  background-color: #fbb;
+}
+
+.field--radio input {
+  margin-right: 1rem;
+}
+
+button {
+  border: 1px solid #888;
+  border-radius: 3px;
+  padding: 0.5rem;
+  background-color: #fff;
+  transition: background-color ease-in 300ms;
+}
+
+button:hover {
+  background-color: #bbb;
+}
+
+.errors {
+  margin-bottom: 2rem;
+}
+
+.house {
+  max-width: 60rem;
+  margin-bottom: 3rem;
+}
+
+.house h2 {
+  margin-bottom: 0;
+}
+
+.house .about {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  word-break: break-word;
+}
+
+.house .actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navBar{
+  display: flex;
+  margin-left: -2rem;
+}
+
+.navBar > p {
+  margin-right: 1rem;
+}
+
+.navBarLogged{
+  display: flex;
+  margin-left: -2rem;
+}
+
+.navBarLogged > p {
+  margin-right: 1rem;
+}
+
+.logout{
+  margin-left: auto;
+}
+
+.table{
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 600px) {
+  .field {
+    flex-direction: row;
+  }
+
+  .field label {
+    flex: 0 0 200px;
+  }
+
+  .field--radio label {
+    flex: initial;
+  }
+
+  .field input {
+    flex: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .table{
+    margin-bottom: 1rem;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 400px) {
+
+  .navBar{
+    position: fixed;
+    height: 20rem;
+    width: 75%;
+    bottom: 0;
+    display: flex;
+    margin-left: -2rem;
+  }
+
+  .navBarLogged{
+    position: fixed;
+    height: 2rem;
+    width: 75%;
+    bottom: 0;
+    display: flex;
+    margin-left: -2rem;
+  }
+}

@@ -1,0 +1,43 @@
+<%- include('header') -%>
+
+<%- include('navBarLogged') -%>
+
+<h1>Notendur</h1>
+
+<form method="post" action="/admin/updateAdmin">
+<div class = "table">
+    <table>
+        <tr>
+            <% if(user.admin){ %>
+            <th>Stjórnandi?</th>
+            <% } %>
+            <th>Notendanafn</th>
+            <th>Nafn</th>
+            <th>Netfang</th>
+        </tr>
+        <% users.forEach((u) => { %>
+        <tr>
+            <% if(user.admin){ %>
+            <td>
+                <% if(u.admin){ %>
+                <input name = "checkAdmin" type = "checkbox" value="<%= u.id %>" checked>
+            <% } else { %>
+                <input name = "checkAdmin" type = "checkbox" value ="<%= u.id %>">
+            <% } %>
+            </td>
+            <% } %>
+            <td><%= u.username %></td>
+            <td><%= u.name %></td>
+            <td><%= u.email %></td>
+        </tr>
+        <% }) %>
+    </table>
+</div>
+
+    <% if(user.admin){ %>
+        <button>Uppfæra stjórnendur</button>
+    <% } %>
+  </form>
+
+  
+<%- include('footer') -%>

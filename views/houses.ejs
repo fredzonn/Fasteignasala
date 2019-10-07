@@ -1,0 +1,48 @@
+<%- include('header') -%>
+
+<%- include('navBarLogged') -%>
+
+<h1>EA Fasteignir</h1>
+
+<div class="houses">
+  <% if (list.length === 0) { %>
+    <p>Engar umsóknir.</p>
+  <% } %>
+
+  
+  <% list.forEach((house) => { %>
+    <div class="house">
+      <h2><%= house.name %></h2>
+      <img src= "<%= house.img %>">
+      <p>Verð: <%= house.price %></p>
+      <p>Brunabótamat: <%= house.firevalue %></p>
+      <p>Fasteignamat: <%= house.value %></p>
+      <p>Áhvílandi: <%= house.resting %></p>
+      <p>Gerð: <%= house.type %></p>
+      <p>Stærð: <%= house.size %></p>
+      <p>Herbergi: <%= house.rooms %></p>
+      <p>Svefnherbergi: <%= house.bedrooms %></p>
+      <p>Baðherbergi: <%= house.bathrooms %></p>
+      <p>Byggt: <%= house.year %></p>
+      <% if (house.sold) { %>
+        <p>Selt: Já</p>
+          <% } else { %>
+            <p>Selt: Nei</p>
+          <% } %>
+
+      <p class="about"><%= house.about %></p>
+        <div class="delete">
+            <% if(user.admin){ %>
+          <form method="post" action="/houses/delete">
+            <input type="hidden" name="id" value="<%= house.id %>">
+            <button>Eyða</button>
+            <% } %>
+          </form>
+        </div>
+      </div>
+    </div>
+  <% }); %>
+</div>
+
+
+<%- include('footer') -%>
