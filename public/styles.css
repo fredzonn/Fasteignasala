@@ -53,8 +53,6 @@ tr:nth-child(even){
   background-color: Gainsboro;
 }
 
-
-
 .field {
   display: flex;
   flex-direction: column;
@@ -120,51 +118,263 @@ button:hover {
   margin-bottom: 2rem;
 }
 
+.head {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 40rem;
+  padding-bottom: 1rem; 
+  margin-bottom: 2rem;
+  border-bottom-style: solid;
+  border-width: 0.1rem;
+}
+
+.houses {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .house {
-  max-width: 60rem;
-  margin-bottom: 3rem;
-}
-
-.house h2 {
-  margin-bottom: 0;
-}
-
-.house .about {
+  width: 25rem;
   margin-top: 1rem;
-  margin-bottom: 1rem;
-  word-break: break-word;
+  margin-left: 5rem;
+  margin-right: 5rem;
 }
 
-.house .actions {
+.house > h2 {
+  margin: 0;
+}
+
+.house > .img-effect { 
+  overflow: hidden; 
+  height: 15rem;
+}
+
+.house > .img-effect > a > img {
+  width: 100%;
+  height: 100%;
+  transition: transform 2s, filter 1.5s ease-in-out;
+  transform-origin: center center;
+  filter: brightness(50%);
+}
+
+  .house > .img-effect > a > img:hover { 
+    filter: brightness(100%);
+    transform: scale(1.3);
+  }
+
+.house > .description {
   display: flex;
   justify-content: space-between;
+  margin-top:-0.4rem;
+  background-color: gainsboro;
+}
+
+.house > .description > .right >p{
+  padding: 0.5rem;
+}
+
+.house > .description > .left >p{
+  padding: 0.5rem;
+}
+
+.house > .action {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.house-info {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.navBar{
+.house-desc {
+  margin-right: 15rem;
+  margin-left: 15rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: solid;
+  border-width: thin;
+  border-color: #888;   
+}
+
+.house-desc > .price {
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 0.3rem;
+  background-color: gainsboro;
+  max-width: 19rem;
+  text-align: center;
+}
+
+.house-desc > .impo-details {
   display: flex;
-  margin-left: -2rem;
+  margin-top: 1rem;
+}
+
+.house-desc > .impo-details > div {
+  margin-right: 3rem;
+  font-size: 1.5rem;
+}
+
+.house-desc > .impo-details > div > .name {
+  background-color: gray;
+  border-radius: 0.3rem;
+  font-size: 1.5rem;
+  color: white;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.house-desc > .details {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  border-top: solid;
+  border-width: thin;
+  border-color: #888;  
+}
+
+.house-desc > .about {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: solid;
+  border-width: thin;
+  border-color: #888;  
+}
+
+.house-desc > .details > .info {
+  display: flex;
+  margin-top: 1rem;
+}
+
+.house-desc > .details > .info > p {
+  margin-right: 0.2rem;
+}
+
+.house-desc > .details > .info > .name {
+  background-color: gray;
+  border-radius: 0.3rem;
+  color: white;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+}
+
+.house-additional {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  border-top: solid;
+  border-width: thin;
+  border-color: #888;
+  background: gainsboro;
+}
+
+.house-additional > .house-request {
+  margin-right: 1.5rem;
+  width: 50rem;
+}
+
+.house-additional > .house-employee {
+  margin-left: 1.5rem;
+}
+
+.field > .req {
+display: flex;
+height: 21rem;
+}
+
+.navBar{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  max-height: 8rem;
+  background-color: #888;
+}
+
+.navBar > a > img {
+  max-width: 18rem;
+  max-height: 15rem;
 }
 
 .navBar > p {
-  margin-right: 1rem;
+  margin-top: auto;
+  margin-bottom: auto;
+  text-decoration: none;
+  color:white;
 }
 
-.navBarLogged{
-  display: flex;
-  margin-left: -2rem;
+.navBar > p > a {
+  margin-top: auto;
+  margin-bottom: auto;
+  transition: all .5s ease;
+  text-align: center;
+  background-color : transparent;
+  padding: 1rem;
+  outline: none;
+  border-radius: 4px;
+  text-decoration: none;
+  color: white;
 }
 
-.navBarLogged > p {
-  margin-right: 1rem;
+.navBar > p:hover > a {
+  color: black;
+  background-color: #fff;
 }
 
 .logout{
-  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  border-left-style: solid;
+  border-width: 0.1rem;
+  border-color: white;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 1rem;
+  padding: 1rem;
+}
+
+.logout > p > a{
+  text-decoration: none;
+  color: white;
+}
+
+.employee > h2 {
+  margin: 0;
+}
+
+.employees > .employee {
+  border-bottom: solid;
+  border-width: thin;
+  border-color: #888;
+  text-align: center;
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.employees > .employee > img {
+  height: 20rem;
+  width: 15rem;
 }
 
 .table{
   margin-bottom: 1rem;
+  text-align: -webkit-center;
+}
+
+.adminUpdate{
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media (min-width: 600px) {

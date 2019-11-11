@@ -1,5 +1,14 @@
+CREATE TABLE employees (
+  id serial primary key,
+  name varchar(128) not null,
+  img varchar(128),
+  phone int not null,
+  email varchar(128) not null
+);
+
 CREATE TABLE houses (
   id serial primary key,
+  employees_id INT REFERENCES employees(id),
   name varchar(128) not null,
   price int not null,
   firevalue int not null,
@@ -19,20 +28,17 @@ CREATE TABLE houses (
   updated timestamp with time zone not null default current_timestamp
 );
 
-CREATE TABLE employees (
-  id serial primary key,
-  name varchar(128) not null,
-  img bytea,
-  phone int not null,
-  email varchar(128) not null
-);
-
 CREATE TABLE users (
   id serial primary key,
   name varchar(128) not null,
   email varchar(256) not null,
-  username varchar(128) not null,
+  username varchar(128) unique not null,
   password varchar(128) not null,
   admin boolean default false,
   created timestamp with time zone not null default current_timestamp
 );
+
+CREATE TABLE requests (
+  house_id INT REFERENCES houses(id),
+  request text not null
+)

@@ -1,0 +1,18 @@
+<%- include('header') -%>
+
+<h1 class = "head">Starfsfólk</h1>
+
+<div class="employees">
+
+  <% list.forEach((employee) => { %>
+    <div class="employee">
+      <h2><%= employee.name %></h2>
+      <img src= "<%= employee.img %>">
+      <p>Sími: <%= employee.phone %></p>
+      <p>Netfang: <%= employee.email %></p>
+      </div>
+      <% }); %>  
+</div>
+
+
+<%- include('footer') -%>

@@ -5,6 +5,7 @@ const { sanitize } = require('express-validator');
 const bcrypt = require('bcrypt');
 
 const { insertUser } = require('./db');
+const { findByUsername } = require('./users');
 
 /**
  * Higher-order fall sem umlykur async middleware með villumeðhöndlun.
@@ -59,6 +60,17 @@ const validations = [
     .isLength({ min: 1 })
     .withMessage('Notendanafn má ekki vera tómt'),
 
+  check('username')
+    .custom(async (value) => {
+      const user = await findByUsername(value);
+      if (user) {
+        // throw error ef lykilorð passa ekki
+        throw new Error('Lykilorð verða að vera eins');
+      } else {
+        return value;
+      }
+    }),
+
   check('password')
     .isLength({ min: 8 })
     .withMessage('Lykilorð verður að vera að minnsta kosti 8 stafir'),
@@ -110,6 +122,7 @@ function form(req, res) {
     password: '',
     passwordConfirm: '',
     errors: [],
+    page: 'register',
   };
   res.render('register', data);
 }

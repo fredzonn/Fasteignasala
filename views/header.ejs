@@ -10,6 +10,25 @@
   </head>
   <body>
     <header>
-
+      <div class = "navBar">
+        <a href="/houses">
+        <img src = "../../logo.png">
+        </a>
+      <% if(typeof user === 'undefined'){ %>  
+        <p><a href="/login">Innskráning</a></p>
+        <p><a href="/register">Nýskráning</a></p>
+      <% } %>
+        <p><a href="/houses">Söluskrá</a></p>
+        <p><a href="/employees">Sölumenn</a></p>
+            <% if(typeof user !== 'undefined'){ %>      
+                <p><a href="/admin">Notendur</a></p>
+            <% } %>
+          <div class = "logout">
+          <% if(typeof user !== 'undefined'){ %>      
+            <p><%= user.username %></p>
+            <p><a href="/logout">Útskrá</a></p>
+            <% } %>
+          </div>
+      </div>
     </header>
     <main>

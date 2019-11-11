@@ -1,0 +1,84 @@
+<%- include('header') -%>
+
+<h1 class = "head"><%= house.name %></h1>
+    <div class = "house-item">
+        <div class= "house-info">
+            <img src= "<%= house.img %>" style= width:850px;height:550px;>
+            <div class= "house-desc">
+                <p class= "price">Verð: <%= house.price %>.- Kr</p>
+                <div class= "impo-details">
+                    <div>
+                        <span class = "name">Gerð:</span> 
+                        <span><%= house.type %></span>
+                    </div>
+                    <div>
+                        <span class = "name">Stærð:</span> 
+                        <span><%= house.size %> m²</span>
+                    </div>
+                    <div>    
+                        <span class = "name">Herbergi:</span> 
+                        <span><%= house.rooms %></span>
+                    </div>
+                </div>
+                <div class = "details">
+                    <div class = "info">
+                        <p class = "name">Brunabótamat:</p> 
+                        <p><%= house.firevalue %>.- Kr</p>
+                        <p class = "name">Fasteignamat:</p> 
+                        <p><%= house.value %>.- Kr</p>
+                        <p class = "name">Áhvílandi:</p> 
+                        <p><%= house.resting %>.- Kr</p>
+                    </div>
+                    <div class = "info">
+                        <p class = "name">Stofur:</p> 
+                        <p><%= house.livingrooms %></p>
+                        <p class = "name">Svefnherbergi:</p>
+                        <p><%= house.bedrooms %></p>
+                        <p class = "name">Baðherbergi:</p> 
+                        <p><%= house.bathrooms %></p>
+                    </div>
+                    <div class = "info">
+                        <p class = "name">Byggingarár:</p> 
+                        <p><%= house.year %></p>
+                        <% if (house.sold) { %>
+                            <p class = "name">Selt:</p> 
+                            <p>Já</p>
+                            <% } else { %>
+                                <p class = "name">Selt:</p>
+                                <p>Nei</p>
+                            <% } %>            
+                    </div>
+                </div>
+                <div class = "about">
+                    <p><%= house.about %></p>
+                </div>  
+            </div>
+        </div>  
+        <% if(typeof user !== 'undefined'){ %> 
+            <div class = "house-additional">
+                <div class = "house-request">
+                    <label for="request">Sentu fyrirspurn um eiginina</label>
+                    <form method="post" action="/houses/<%= house.id %>/request">
+                        <div class="field<%= locals.isInvalid('request', errors) ?  ' field--invalid' : '' %>">
+                          <textarea class = "req" type = "text" name="request" id="<%= house.id %>" value="<%= request %>" class=""></textarea>
+                        </div>
+                        <% if (errors.length > 0) { %>
+                          <h2>Vandræði við að senda inn fyrirspurn:</h2>
+                          <ul class="errors">
+                            <% errors.forEach((error) => { %>
+                              <li class="error"><label for="<%= error.param %>"><%= error.msg %></label></li>
+                            <% }); %>
+                          </ul>
+                        <% } %>
+                        <button>Senda fyrirspurn</button>
+                      </form>
+                </div>
+                <div class = "house-employee">
+                    <p>Sölumaður: <%= employee.name %> </p>
+                    <img src= "<%= employee.img %>" style= width:300px;height:350px;>
+                    <p>Sími: <%= employee.phone %></p>   
+                    <p>email: <%= employee.email %></p>
+                </div>     
+            </div>
+        <% } %> 
+        </div>

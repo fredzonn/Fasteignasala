@@ -12,9 +12,10 @@ const readFileAsync = util.promisify(fs.readFile);
 async function main() {
   console.info(`Set upp gagnagrunn á ${connectionString}`);
   // droppa töflum ef til
-  await query('DROP TABLE IF EXISTS houses');
+  await query('DROP TABLE IF EXISTS houses CASCADE');
   await query('DROP TABLE IF EXISTS employees');
-  await query('DROP TABLE IF EXISTS users');
+  await query('DROP TABLE IF EXISTS users CASCADE');
+  await query('DROP TABLE IF EXISTS requests');
   console.info('Töflum eytt');
 
   // búa til töflur út frá skema
@@ -36,6 +37,7 @@ async function main() {
     console.error('Villa við að bæta gögnum við:', e.message);
   }
 }
+
 
 main().catch((err) => {
   console.error(err);

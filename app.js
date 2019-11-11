@@ -11,6 +11,7 @@ const register = require('./register');
 const admin = require('./admin');
 const houses = require('./houses');
 const users = require('./users');
+const employees = require('./employees');
 
 /* Sækir stillingar úr env */
 require('dotenv').config();
@@ -97,7 +98,7 @@ app.get('/', (req, res) => {
     return res.redirect('/houses');
   }
 
-  return res.redirect('/register');
+  return res.redirect('/houses');
 });
 
 app.get('/login', (req, res) => {
@@ -149,10 +150,11 @@ function isInvalid(field, errors) {
 
 app.locals.isInvalid = isInvalid;
 
-
 app.use('/register', register);
 app.use('/houses', houses);
+app.use('/houses/:id', houses);
 app.use('/admin', admin);
+app.use('/employees', employees);
 
 function notFoundHandler(req, res, next) { // eslint-disable-line
   res.status(404).render('error', { page: 'error', title: '404', error: '404 fannst ekki' });

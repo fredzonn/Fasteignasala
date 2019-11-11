@@ -1,38 +1,54 @@
 <%- include('header') -%>
 
-<%- include('navBarLogged') -%>
-
-<h1>EA Fasteignir</h1>
+<h1 class = "head">Söluskrá</h1>
 
 <div class="houses">
   <% if (list.length === 0) { %>
-    <p>Engar umsóknir.</p>
+    <p>Engar fasteignir.</p>
   <% } %>
 
   
   <% list.forEach((house) => { %>
     <div class="house">
       <h2><%= house.name %></h2>
-      <img src= "<%= house.img %>">
-      <p>Verð: <%= house.price %></p>
-      <p>Brunabótamat: <%= house.firevalue %></p>
-      <p>Fasteignamat: <%= house.value %></p>
-      <p>Áhvílandi: <%= house.resting %></p>
-      <p>Gerð: <%= house.type %></p>
-      <p>Stærð: <%= house.size %></p>
-      <p>Herbergi: <%= house.rooms %></p>
-      <p>Svefnherbergi: <%= house.bedrooms %></p>
-      <p>Baðherbergi: <%= house.bathrooms %></p>
-      <p>Byggt: <%= house.year %></p>
-      <% if (house.sold) { %>
-        <p>Selt: Já</p>
-          <% } else { %>
-            <p>Selt: Nei</p>
-          <% } %>
+      <div class = "img-effect">
+        <a href="/houses/<%= house.id %>">
+          <img src= "<%= house.img %>">
+        </a>
+      </div>
+      <div class = "description">
+        <div class = "left"> 
+         <p>Verð: <%= house.price %>.- Kr</p>
+         <p>Gerð: <%= house.type %></p>
+         <p>Stærð: <%= house.size %> m²</p>
+        </div>
+        <div class = "right"> 
+          <p>Herbergi: <%= house.rooms %></p>
+          <p>Byggt: <%= house.year %></p>
+          <% if (house.sold) { %>
+            <p>Selt: Já</p>
+              <% } else { %>
+                <p>Selt: Nei</p>
+              <% } %>
+        </div>
+      </div>
+  
 
-      <p class="about"><%= house.about %></p>
+    <div class = "action">  
+      <div class="sell">
+        <% if(typeof user !== 'undefined' && user.admin){ %>
+          <% if (house.sold) { %>
+            ✓ Fasteign seld 
+          <% } else { %>
+            <form method="post" action="/houses/update">
+              <input type="hidden" name="id" value="<%= house.id %>">
+              <button>Uppfæra sölu</button>
+            </form>
+          <% } %>
+        <% } %>
+      </div>
         <div class="delete">
-            <% if(user.admin){ %>
+            <% if(typeof user !== 'undefined' && user.admin){ %>
           <form method="post" action="/houses/delete">
             <input type="hidden" name="id" value="<%= house.id %>">
             <button>Eyða</button>
@@ -41,7 +57,7 @@
         </div>
       </div>
     </div>
-  <% }); %>
+  <% }); %>  
 </div>
 
 

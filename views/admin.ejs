@@ -1,14 +1,12 @@
 <%- include('header') -%>
 
-<%- include('navBarLogged') -%>
-
-<h1>Notendur</h1>
+<h1 class = "head">Notendur</h1>
 
 <form method="post" action="/admin/updateAdmin">
 <div class = "table">
     <table>
         <tr>
-            <% if(user.admin){ %>
+            <% if(user && user.admin){ %>
             <th>Stjórnandi?</th>
             <% } %>
             <th>Notendanafn</th>
@@ -32,12 +30,12 @@
         </tr>
         <% }) %>
     </table>
-</div>
 
-    <% if(user.admin){ %>
-        <button>Uppfæra stjórnendur</button>
+    <% if(user && user.admin){ %>
+        <button class = "adminUpdate">Uppfæra stjórnendur</button>
     <% } %>
   </form>
+</div>
 
   
 <%- include('footer') -%>

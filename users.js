@@ -1,7 +1,7 @@
 
 const bcrypt = require('bcrypt');
 
-const { selectUser, selectById } = require('./db');
+const { query, selectById } = require('./db');
 
 async function comparePasswords(password, user) {
   const ok = await bcrypt.compare(password, user.password);
@@ -14,13 +14,15 @@ async function comparePasswords(password, user) {
 }
 
 async function findByUsername(username) {
-  const found = await selectUser(username);
+  const q = 'SELECT * FROM users WHERE username = $1';
 
-  if (found) {
-    return Promise.resolve(found);
+  const result = await query(q, [username]);
+
+  if (result.rowCount === 1) {
+    return result.rows[0];
   }
 
-  return Promise.resolve(null);
+  return null;
 }
 
 async function findById(id) {

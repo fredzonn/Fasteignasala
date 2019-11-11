@@ -27,7 +27,7 @@ async function query(q, values = []) {
 }
 
 /**
- * Bætir við umsókn.
+ * Bætir við fasteign.
  *
  * @param {array} data Fylki af gögnum fyrir umsókn
  * @returns {object} Hlut með niðurstöðu af því að keyra fyrirspurn
@@ -46,6 +46,12 @@ VALUES
   return query(q, values);
 }
 
+/**
+ * Bætir við Notanda.
+ *
+ * @param {array} data Fylki af gögnum fyrir notanda
+ * @returns {object} Hlut með niðurstöðu af því að keyra fyrirspurn
+ */
 async function insertUser(data) {
   const q = `
 INSERT INTO users
@@ -58,14 +64,89 @@ VALUES
 }
 
 /**
- * Sækir allar umsóknir
+ * Bætir við fyrirspurn.
  *
- * @returns {array} Fylki af öllum umsóknum
+ * @param {array} data Fylki af gögnum fyrir fyrirspurn
+ * @returns {object} Hlut með niðurstöðu af því að keyra fyrirspurn
+ */
+async function insertRequest(data) {
+  const q = `
+INSERT INTO requests
+(house_id, request)
+VALUES
+($1, $2)`;
+
+  return query(q, [data.id, data.request]);
+}
+
+/**
+ * Sækir allar eignir
+ *
+ * @returns {array} Fylki af öllum fasteignum
  */
 async function select() {
   const result = await query('SELECT * FROM houses ORDER BY id');
 
   return result.rows;
+}
+
+/**
+ * Sækir fasteign
+ *
+ * @returns {object} Hlut með fasteign
+ */
+async function selectHouse(id) {
+  const q = 'SELECT * FROM houses WHERE id = $1';
+  const result = await query(q, [id]);
+
+  if (result.rowCount === 1) {
+    return result.rows[0];
+  }
+
+  return null;
+}
+
+/**
+ * Sækir alla starfsmenn
+ *
+ * @returns {array} Fylki af öllum starfsmönnum
+ */
+async function selectEmployees() {
+  const result = await query('SELECT * FROM employees ORDER BY id');
+
+  return result.rows;
+}
+
+/**
+ * Sækir starfsmann
+ *
+ * @returns {object} Hlut með starfsmanni
+ */
+async function selectEmployee(id) {
+  const q = 'SELECT * FROM employees WHERE id = $1';
+
+  const result = await query(q, [id]);
+
+  if (result.rowCount === 1) {
+    return result.rows[0];
+  }
+
+  return null;
+}
+
+/**
+ * Uppfærir fasteign sem seldna.
+ *
+ * @param {string} id Id á umsókn
+ * @returns {object} Hlut með niðurstöðu af því að keyra fyrirspurn
+ */
+async function update(id) {
+  const q = `
+UPDATE houses
+SET sold = true, updated = current_timestamp
+WHERE id = $1`;
+
+  return query(q, [id]);
 }
 
 async function selectUser(username) {
@@ -98,32 +179,17 @@ async function selectUsers() {
   return result.rows;
 }
 
-/**
- * Uppfærir umsókn sem unna.
- *
- * @param {string} id Id á umsókn
- * @returns {object} Hlut með niðurstöðu af því að keyra fyrirspurn
- */
-async function update(id) {
-  const q = `
-UPDATE houses
-SET processed = true, updated = current_timestamp
-WHERE id = $1`;
-
-  return query(q, id);
-}
-
 async function updateAdmin(id) {
   const q = `
-UPDATE users SET admin = true WHERE id = $1`;
+  UPDATE users SET admin = true WHERE id = $1`;
 
   return query(q, [id]);
 }
 
 /**
- * Eyðir umsókn.
+ * Eyðir fasteign.
  *
- * @param {string} id Id á umsókn
+ * @param {string} id Id á fasteign
  * @returns {object} Hlut með niðurstöðu af því að keyra fyrirspurn
  */
 async function deleteRow(id) {
@@ -136,11 +202,15 @@ module.exports = {
   query,
   insert,
   insertUser,
+  insertRequest,
   select,
+  selectHouse,
+  selectEmployees,
+  selectEmployee,
+  update,
   selectUser,
   selectUsers,
   selectById,
-  update,
   updateAdmin,
   deleteRow, // delete er frátekið orð
 };

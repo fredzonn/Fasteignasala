@@ -1,7 +1,7 @@
 {
-  "name": "v3-synilausn",
+  "name": "lokaverkefni",
   "version": "1.0.0",
-  "description": "Verkefni 3 sýnilausn",
+  "description": "Lokaverkefni HÍ tölvunarfræði",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon app.js",
@@ -19,6 +19,7 @@
     "express": "^4.16.4",
     "express-session": "^1.16.2",
     "express-validator": "^6.2.0",
+    "faker": "^4.1.0",
     "local": "^0.3.3",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
