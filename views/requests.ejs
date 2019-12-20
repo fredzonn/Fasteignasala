@@ -2,6 +2,7 @@
 
 <h1 class = "head">Fyrirspurnir & pantanir</h1>
 
+<% if(user && user.admin){ %>
 <div class = "request-container">
  <div class="requests">
    <h2 class = "requestslist">Fyrirspurnir</h2>
@@ -25,6 +26,7 @@
          <% }); %>  
    </div>
  </div>
+ <% } %>
 
 
 <%- include('footer') -%>
