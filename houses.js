@@ -73,7 +73,7 @@ async function houses(req, res) {
   return res.render('houses', data);
 }
 
-/**
+/*
  * Route handler fyrir form fasteignar.
  *
  * @param {object} req Request hlutur
@@ -130,7 +130,7 @@ async function showErrors(req, res, next) {
   if (!validation.isEmpty()) {
     const errors = validation.array();
     data.errors = errors;
-    data.title = 'Ummæli – vandræði';
+    data.title = 'Fyrirspurn/pöntun – vandræði';
 
     return res.render('house', data);
   }

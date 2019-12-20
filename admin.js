@@ -33,6 +33,12 @@ async function admin(req, res) {
   return res.render('admin', data);
 }
 
+/**
+ * Ósamstilltur route handler sem breytir notanda í admin.
+ *
+ * @param {object} req Request hlutur
+ * @param {object} res Response hlutur
+ */
 async function adminUpdate(req, res) {
   const { checkAdmin } = req.body;
   checkAdmin.forEach(async (id) => {

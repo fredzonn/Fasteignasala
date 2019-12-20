@@ -8,7 +8,7 @@ CREATE TABLE employees (
 
 CREATE TABLE houses (
   id serial primary key,
-  employees_id INT REFERENCES employees(id),
+  employees_id INT REFERENCES employees(id) ON DELETE CASCADE,
   name varchar(128) not null,
   price int not null,
   firevalue int not null,
@@ -24,6 +24,8 @@ CREATE TABLE houses (
   img varchar(128),
   about text,
   sold boolean default false,
+  lat float,
+  long float,
   created timestamp with time zone not null default current_timestamp,
   updated timestamp with time zone not null default current_timestamp
 );
@@ -33,12 +35,21 @@ CREATE TABLE users (
   name varchar(128) not null,
   email varchar(256) not null,
   username varchar(128) unique not null,
-  password varchar(128) not null,
+  password varchar(256) not null,
+  security varchar(128),
+  safety varchar(128),
   admin boolean default false,
   created timestamp with time zone not null default current_timestamp
 );
 
 CREATE TABLE requests (
-  house_id INT REFERENCES houses(id),
+  house_id INT REFERENCES houses(id) ON DELETE CASCADE,
   request text not null
-)
+);
+
+CREATE TABLE checkin (
+  house varchar (256) not null,
+  username varchar(256) not null,
+  day date,
+  time time
+);

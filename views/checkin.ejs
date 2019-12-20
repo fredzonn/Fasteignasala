@@ -1,0 +1,59 @@
+<%- include('header') -%>
+
+<h1 class = "head">Panta tíma</h1>
+
+<h2>Panta tíma fyrir opið hús</h2>
+<div class = "checkin-item">
+    <% if(typeof user !== 'undefined'){ %> 
+        <form method="post" action="/checkin/insertCheckin">
+        <div class = "pick-house">
+         <p>Veldu fasteign:</p>
+         <div class = "field">
+             <select name="house" id="house" value="<%= house.name %>" class="">
+                     <% list.forEach((house) => { %>
+                     <option value="<%= house.name %>"><%= house.name %></option>
+                     <% }); %>  
+                 </select>
+         </div>
+        </div>
+        <div class = "pick-day">
+         <p>Veldu dagssetningu:</p>
+         <div class="field<%= locals.isInvalid('day', errors) ?  ' field--invalid' : '' %>"></div>
+         <input name = 'day' id="day" type="text" value = "<%= day %>">
+        </div>
+        <div class = "pick-time">
+         <p>Veldu tíma:</p>
+         <div class = "field">
+                <select name="time" id="time" value="<%= time %>" class="">
+                    <option value="8:00">8:00</option>
+                    <option value="9:00">9:00</option>
+                    <option value="10:00">10:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="12:00">12:00</option>
+                    <option value="13:00">13:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                  </select>
+                </div>
+              </div>
+        <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
+        <script>
+            var datepicker = new ej.calendars.DatePicker({ width: "20rem" });
+            datepicker.appendTo('#day');
+        </script>
+        <% if (errors.length > 0) { %>
+           <div class = "checkin-errors">
+               <h2>Vandræði við að skrá pöntun:</h2>
+               <ul class="errors">
+                 <% errors.forEach((error) => { %>
+                   <li class="error"><label for="<%= error.param %>"><%= error.msg %></label></li>
+                 <% }); %>
+               </ul>
+             <% } %>
+           </div>
+          </div> 
+        <button>Staðfesta pöntun</button>
+    </form>
+    <% } %>
+
+    <%- include('footer') -%>

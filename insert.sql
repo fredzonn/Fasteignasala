@@ -10,7 +10,7 @@ VALUES
 
 INSERT INTO houses
 (name, employees_id, price, firevalue, value, resting, type, size, 
- rooms, livingrooms, bedrooms, bathrooms, year, img, about)
+ rooms, livingrooms, bedrooms, bathrooms, year, img, about, lat, long)
 VALUES
 ('Dúfnahólar 10', 1, 35000000, 33000000, 33000000, 0,'Einbýli', 68,
   3, 1, 1, 1, 1960, '../../dufnaholar10.jpg', 'Komið er inn í flísalagða 
@@ -22,11 +22,11 @@ VALUES
   fataskápar eru í svefnherberginum. Baðherbergi er rúmgott, flísar á gólfi og 
   hluta veggja, baðkar með sturtuaðstöðu, innrétting er með góðu skápaplássi. 
   Þvotthús er við hlið eldhús með geymslu innaf. Bílskúr er með heitu og 
-  köldu vatni, búið er að setja klósett, gluggi er enda skúrs.');  
+  köldu vatni, búið er að setja klósett, gluggi er enda skúrs.', 64.111158, -21.818723);  
 
   INSERT INTO houses
 (name, employees_id, price, firevalue, value, resting, type, size, 
- rooms, livingrooms, bedrooms, bathrooms, year, img, about)
+ rooms, livingrooms, bedrooms, bathrooms, year, img, about, lat, long)
 VALUES
 ('Dofraborgir 12', 1, 40000000, 35000000, 35000000, 0,'Einbýli', 111,
   5, 1, 3, 1, 1999, '../../dofraborgir12.jpg', 'Lorem ipsum dolor sit amet, consectetur 
@@ -35,24 +35,24 @@ VALUES
   nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
   in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
   occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit 
-  anim id est laborum..');
+  anim id est laborum..', 64.152799, -21.798756);
 
   INSERT INTO houses
 (name, employees_id, price, firevalue, value, resting, type, size, 
- rooms, livingrooms, bedrooms, bathrooms, year, img, about)
+ rooms, livingrooms, bedrooms, bathrooms, year, img, about, lat, long)
 VALUES
-('Arnarhólar 3', 1, 29000000, 28000000, 28000000, 0,'Fjölbýli', 91,
+('Arnarhóll 3', 1, 29000000, 28000000, 28000000, 0,'Fjölbýli', 91,
   4, 2, 1, 1, 1951, '../../arnarholar3.jpg', 'Lorem ipsum dolor sit amet, consectetur 
   adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna 
   aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
   nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
   in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
   occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit 
-  anim id est laborum..');  
+  anim id est laborum..', 64.148123, -21.932760);  
 
   INSERT INTO houses
 (name, employees_id, price, firevalue, value, resting, type, size, 
- rooms, livingrooms, bedrooms, bathrooms, year, img, about)
+ rooms, livingrooms, bedrooms, bathrooms, year, img, about, lat, long)
 VALUES
 ('Hvassaleiti 30', 1, 29000000, 29000000, 27000000, 5000000,'Fjölbýli', 98,
   4, 2, 1, 1, 1971, '../../hvassaleiti30.jpg', 'Lorem ipsum dolor sit amet, consectetur 
@@ -61,11 +61,11 @@ VALUES
   nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
   in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
   occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit 
-  anim id est laborum..');  
+  anim id est laborum..', 64.130526, -21.889157);  
 
   INSERT INTO houses
 (name, employees_id, price, firevalue, value, resting, type, size, 
- rooms, livingrooms, bedrooms, bathrooms, year, img, about)
+ rooms, livingrooms, bedrooms, bathrooms, year, img, about, lat, long)
 VALUES
 ('Flétturimi 35', 2, 60000000, 58000000, 55000000, 0,'Fjölbýli', 113,
   4, 1, 1, 2, 1998, '../../fletturimi35.jpg', 'Lorem ipsum alex býr hersum dolor sit amet, 
@@ -74,11 +74,11 @@ VALUES
   nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
   in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
   occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit 
-  anim id est laborum..');  
+  anim id est laborum..', 64.143042, -21.797567);  
 
   INSERT INTO houses
 (name, employees_id, price, firevalue, value, resting, type, size, 
- rooms, livingrooms, bedrooms, bathrooms, year, img, about)
+ rooms, livingrooms, bedrooms, bathrooms, year, img, about, lat, long)
 VALUES
 ('Dofraborgir 23', 2, 40000000, 35000000, 35000000, 0,'Einbýli', 111,
   3, 1, 1, 1, 1999, '../../dofraborgir23.jpg', 'Lorem ipsum dolor sit amet, consectetur 
@@ -87,10 +87,11 @@ VALUES
   nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
   in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
   occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit 
-  anim id est laborum..');  
+  anim id est laborum..', 64.154128, -21.796685);  
 
 INSERT INTO users
 (username, password, name, email, admin)
 VALUES
 ('admin', '$2a$11$pgj3.zySyFOvIQEpD7W6Aund1Tw.BFarXxgLJxLbrzIv/4Nteisii', 
  'Admin', 'admin@example.org', true);
+

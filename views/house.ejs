@@ -52,6 +52,27 @@
                 <div class = "about">
                     <p><%= house.about %></p>
                 </div>  
+                <div id = "map"></div>
+                <script>  
+                    function initMap(){
+                        var latitude = parseFloat("<%= house.lat %>", 10);
+                        var longditude = parseFloat("<%= house.long %>", 10); 
+
+                        var options = {
+                            zoom: 14,
+                            center: { lat:latitude, lng:longditude }
+                        }
+
+                        var map = new google.maps.Map(document.getElementById('map'), options)
+
+                        var marker = new google.maps.Marker({
+                            position: { lat:latitude, lng:longditude },
+                            map:map
+                        })
+                    }
+                </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApXQQHa7NVkaO7tpFGqfRmhiELh4jXVIk&callback=initMap"
+                async defer></script>
             </div>
         </div>  
         <% if(typeof user !== 'undefined'){ %> 
@@ -78,7 +99,9 @@
                     <img src= "<%= employee.img %>" style= width:300px;height:350px;>
                     <p>Sími: <%= employee.phone %></p>   
                     <p>email: <%= employee.email %></p>
-                </div>     
-            </div>
+                </div>    
+            </div>     
         <% } %> 
         </div>
+        
+        <%- include('footer') -%>

@@ -7,6 +7,8 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro:700" rel="stylesheet">
     <title><%= title %></title>
     <link rel="stylesheet" href="/styles.css">
+
+    <link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet">
   </head>
   <body>
     <header>
@@ -18,10 +20,14 @@
         <p><a href="/login">Innskráning</a></p>
         <p><a href="/register">Nýskráning</a></p>
       <% } %>
+      <% if(typeof user !== 'undefined'){ %>  
+        <p><a href="/checkin">Panta tíma</a></p>
+      <% } %>
         <p><a href="/houses">Söluskrá</a></p>
         <p><a href="/employees">Sölumenn</a></p>
-            <% if(typeof user !== 'undefined'){ %>      
+            <% if(typeof user !== 'undefined' && user.admin){ %>      
                 <p><a href="/admin">Notendur</a></p>
+                <p><a href="/requests">Fyrirspurnir & pantanir</a></p>
             <% } %>
           <div class = "logout">
           <% if(typeof user !== 'undefined'){ %>      

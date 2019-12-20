@@ -1,0 +1,30 @@
+<%- include('header') -%>
+
+<h1 class = "head">Fyrirspurnir & pantanir</h1>
+
+<div class = "request-container">
+ <div class="requests">
+   <h2 class = "requestslist">Fyrirspurnir</h2>
+   <% list.forEach((request) => { %>
+     <div class="request">
+       <h3><%= request.name %></h3>
+       <p><%= request.request %></p>
+       </div>
+       <% }); %>  
+ </div>
+
+ <div class="checkins">
+     <h2 class = "checkinlist">Pantanir</h2>
+     <% checkin.forEach((checkin) => { %>
+       <div class="checkin">
+         <h3><%= checkin.house %></h3>
+         <p><%= checkin.username %></p>
+         <p><%= checkin.day %></p>
+         <p><%= checkin.time %></p>
+         </div>
+         <% }); %>  
+   </div>
+ </div>
+
+
+<%- include('footer') -%>

@@ -13,9 +13,10 @@ async function main() {
   console.info(`Set upp gagnagrunn á ${connectionString}`);
   // droppa töflum ef til
   await query('DROP TABLE IF EXISTS houses CASCADE');
-  await query('DROP TABLE IF EXISTS employees');
+  await query('DROP TABLE IF EXISTS employees CASCADE');
   await query('DROP TABLE IF EXISTS users CASCADE');
-  await query('DROP TABLE IF EXISTS requests');
+  await query('DROP TABLE IF EXISTS checkin CASCADE');
+  await query('DROP TABLE IF EXISTS requests CASCADE');
   console.info('Töflum eytt');
 
   // búa til töflur út frá skema

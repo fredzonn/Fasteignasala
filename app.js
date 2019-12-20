@@ -6,12 +6,15 @@ const express = require('express');
 const session = require('express-session');
 const { Strategy } = require('passport-local');
 
-
 const register = require('./register');
 const admin = require('./admin');
 const houses = require('./houses');
-const users = require('./users');
 const employees = require('./employees');
+const requests = require('./requests');
+const lostpassword = require('./lostpassword');
+const newpassword = require('./newpassword');
+const checkin = require('./checkin');
+const { findByUsername, findById, comparePasswords } = require('./db');
 
 /* Sækir stillingar úr env */
 require('dotenv').config();
@@ -45,14 +48,14 @@ app.use(session({
  */
 async function strat(username, password, done) {
   try {
-    const user = await users.findByUsername(username);
+    const user = await findByUsername(username);
 
     if (!user) {
       return done(null, false);
     }
 
     // Verður annað hvort notanda hlutur ef lykilorð rétt, eða false
-    const result = await users.comparePasswords(password, user);
+    const result = await comparePasswords(password, user);
     return done(null, result);
   } catch (err) {
     console.error(err);
@@ -71,7 +74,7 @@ passport.serializeUser((user, done) => {
 // Sækir notanda út frá id
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await users.findById(id);
+    const user = await findById(id);
     done(null, user);
   } catch (err) {
     done(err);
@@ -155,6 +158,10 @@ app.use('/houses', houses);
 app.use('/houses/:id', houses);
 app.use('/admin', admin);
 app.use('/employees', employees);
+app.use('/requests', requests);
+app.use('/lostpassword', lostpassword);
+app.use('/newpassword', newpassword);
+app.use('/checkin', checkin);
 
 function notFoundHandler(req, res, next) { // eslint-disable-line
   res.status(404).render('error', { page: 'error', title: '404', error: '404 fannst ekki' });

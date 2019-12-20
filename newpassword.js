@@ -4,7 +4,9 @@ const { check, validationResult } = require('express-validator');
 const { sanitize } = require('express-validator');
 const bcrypt = require('bcrypt');
 
-const { insertUser, findByUsername, findByEmail } = require('./db');
+const {
+  findByUsername, findByEmail, updatePassword, findUser,
+} = require('./db');
 
 /**
  * Higher-order fall sem umlykur async middleware með villumeðhöndlun.
@@ -41,12 +43,8 @@ function sanitizeXss(fieldName) {
 
 const router = express.Router();
 
-// Fylki af öllum validations fyrir nýskráningu
+// Fylki af öllum validations fyrir umsókn
 const validations = [
-  check('name')
-    .isLength({ min: 1 })
-    .withMessage('Nafn má ekki vera tómt'),
-
   check('email')
     .isLength({ min: 1 })
     .withMessage('Netfang má ekki vera tómt'),
@@ -58,9 +56,9 @@ const validations = [
   check('email')
     .custom(async (value) => {
       const email = await findByEmail(value);
-      if (email) {
-        // throw error ef netfang er frátekið
-        throw new Error('Netfang frátekið');
+      if (!email) {
+        // throw error ef netfang er ekki til
+        throw new Error('Netfang er ekki til');
       } else {
         return value;
       }
@@ -73,9 +71,9 @@ const validations = [
   check('username')
     .custom(async (value) => {
       const user = await findByUsername(value);
-      if (user) {
-        // throw error ef notendanafn er frátekið
-        throw new Error('Notendanafn frátekið');
+      if (!user) {
+        // throw error ef notendanafn er ekki til
+        throw new Error('Notendanafn er ekki til');
       } else {
         return value;
       }
@@ -85,15 +83,6 @@ const validations = [
     .isLength({ min: 8 })
     .withMessage('Lykilorð verður að vera að minnsta kosti 8 stafir'),
 
-  check('passwordConfirm')
-    .custom((value, { req }) => {
-      if (value !== req.body.password) {
-        // throw error ef lykilorð passa ekki
-        throw new Error('Lykilorð verða að vera eins');
-      } else {
-        return value;
-      }
-    }),
 
   check('safety')
     .isLength({ min: 1 })
@@ -102,9 +91,6 @@ const validations = [
 
 // Fylki af öllum hreinsunum fyrir nyskraningu
 const sanitazions = [
-
-  sanitize('name').trim().escape(),
-  sanitizeXss('name'),
 
   sanitizeXss('email'),
   sanitize('email').trim().normalizeEmail(),
@@ -118,12 +104,13 @@ const sanitazions = [
   sanitizeXss('passwordConfirm'),
   sanitize('passwordConfirm').trim().escape(),
 
-  sanitize('safety').trim().escape(),
   sanitizeXss('safety'),
+  sanitize('safety').trim().escape(),
+
 ];
 
 /**
- * Route handler fyrir form nýskráningar.
+ * Route handler fyrir form umsóknar.
  *
  * @param {object} req Request hlutur
  * @param {object} res Response hlutur
@@ -131,8 +118,7 @@ const sanitazions = [
  */
 function form(req, res) {
   const data = {
-    title: 'Nýskráning',
-    name: '',
+    title: 'Nýtt lykilorð',
     email: '',
     username: '',
     password: '',
@@ -140,13 +126,13 @@ function form(req, res) {
     security: '',
     safety: '',
     errors: [],
-    page: 'register',
+    page: 'newpassword',
   };
-  res.render('register', data);
+  res.render('newpassword', data);
 }
 
 /**
- * Route handler sem athugar stöðu á nýskráningu og birtir villur ef einhverjar,
+ * Route handler sem athugar stöðu á nýju lykilorði og birtir villur ef einhverjar,
  * sendir annars áfram í næsta middleware.
  *
  * @param {object} req Request hlutur
@@ -157,7 +143,6 @@ function form(req, res) {
 function showErrors(req, res, next) {
   const {
     body: {
-      name = '',
       email = '',
       username = '',
       password = '',
@@ -168,7 +153,6 @@ function showErrors(req, res, next) {
   } = req;
 
   const data = {
-    name,
     email,
     username,
     password,
@@ -182,52 +166,63 @@ function showErrors(req, res, next) {
   if (!validation.isEmpty()) {
     const errors = validation.array();
     data.errors = errors;
-    data.title = 'Nýskráning – vandræði';
+    data.title = 'Nýtt lykilorð – vandræði';
 
-    return res.render('register', data);
+    return res.render('newpassword', data);
   }
 
   return next();
 }
 
 /**
- * Ósamstilltur route handler sem vistar gögn í gagnagrunn og sendir
- * á þakkarsíðu
+ * Ósamstilltur route handler sem vistar nýtt lykilorð í gagnagrunn og sendir
+ * á innskráningarsíðu.
  *
  * @param {object} req Request hlutur
  * @param {object} res Response hlutur
  */
 
-async function registerPost(req, res) {
-  await bcrypt.hash(req.body.password, 10, (err, hash) => {
-    insertUser({
-      name: req.body.name,
-      email: req.body.email,
-      username: req.body.username,
-      password: hash,
-      passwordConfirm: hash,
-      security: req.body.security,
-      safety: req.body.safety,
-    }).then((data) => {
-      if (data) {
-        res.redirect('/register/thanks1');
-      }
-    });
+async function newPassword(req, res) {
+  const user = await findUser({
+    email: req.body.email,
+    username: req.body.username,
+    security: req.body.security,
+    safety: req.body.safety,
   });
+  if (!user) {
+    // throw error ef upplýsingar stemmnast ekki
+    throw new Error('Upplýsingar eru ekki réttar', req.body.email);
+  } else {
+    await bcrypt.hash(req.body.password, 10, (err, hash) => {
+      updatePassword({
+        email: req.body.email,
+        username: req.body.username,
+        password: hash,
+        passwordConfirm: hash,
+        security: req.body.security,
+        safety: req.body.safety,
+      }).then((data) => {
+        if (data) {
+          res.redirect('/newpassword/reset');
+        }
+      });
+    });
+  }
 }
 
+
 /**
- * Route handler fyrir þakkarsíðu.
+ * Route handler fyrir lykilorði breytt.
  *
  * @param {object} req Request hlutur
  * @param {object} res Response hlutur
  */
-function thanks1(req, res) {
-  return res.render('thanks1', { title: 'Nýskráning tókst', page: 'register' });
+function reset(req, res) {
+  return res.render('reset', { title: 'Lykilorði breytt', page: 'newpassword' });
 }
 
 router.get('/', form);
-router.get('/thanks1', thanks1);
+router.get('/reset', reset);
 
 router.post(
   '/',
@@ -238,7 +233,7 @@ router.post(
   // Öll gögn í lagi, hreinsa þau
   sanitazions,
   // Senda gögn í gagnagrunn
-  catchErrors(registerPost),
+  catchErrors(newPassword),
 );
 
 module.exports = router;

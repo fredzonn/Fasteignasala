@@ -17,6 +17,21 @@ html { /* stylelint-disable-line */
   font-size: 16px;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#map{
+  height: 40rem;
+  width: 100%;
+}
+
 input,
 select,
 textarea,
@@ -128,6 +143,16 @@ button:hover {
   margin-bottom: 2rem;
   border-bottom-style: solid;
   border-width: 0.1rem;
+}
+
+.resetlink {
+  margin-top: 1rem;
+}
+
+.reset {
+  font-family: 'Source Sans Pro', sans-serif;
+    text-decoration: none;
+    color: black;
 }
 
 .houses {
@@ -242,7 +267,10 @@ button:hover {
 .house-desc > .about {
   margin-top: 1rem;
   padding-top: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
   border-top: solid;
+  border-bottom: solid;
   border-width: thin;
   border-color: #888;  
 }
@@ -283,6 +311,67 @@ button:hover {
 
 .house-additional > .house-employee {
   margin-left: 1.5rem;
+}
+
+.request-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.requests {
+  text-align: center;
+  max-width: 30rem;
+  background-color: gainsboro;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.request {
+  margin-bottom: 0.5rem;
+}
+
+.requests > .requestslist {
+  text-align: center;
+  max-width: 30rem;
+  padding-bottom: 1rem; 
+  border-bottom-style: solid;
+  border-width: 0.1rem;
+}
+
+.checkins {
+  text-align: center;
+  max-width: 30rem;
+  background-color: gainsboro;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.checkin {
+  margin-bottom: 0.5rem;
+}
+
+.checkins > .checkinlist {
+  text-align: center;
+  max-width: 30rem;
+  padding-bottom: 1rem; 
+  border-bottom-style: solid;
+  border-width: 0.1rem;
+}
+
+.checkin-item > form > .pick-house, .pick-day, .pick-time{
+  margin-bottom: 1rem;
+  background-color: gainsboro;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  max-width: 21rem;
+}
+
+.checkin-item > form > .pick-house > .field{
+  margin-bottom: 0;
+}
+
+.checkin-item > form > .pick-time > .field{
+  margin-bottom: 0;
 }
 
 .field > .req {
@@ -376,6 +465,29 @@ height: 21rem;
   margin-left: auto;
   margin-right: auto;
 }
+
+.footer {
+  background-color: gray;
+  color: white;
+  text-align: center;
+  padding-top:0.5rem;
+  margin-top: auto;
+}
+
+.footer > p {
+  padding: 0.5rem;
+}
+
+.footer > div {
+  border-top: 1px solid gainsboro;
+  color: gainsboro;
+  max-width: 20rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+}
+
 
 @media (min-width: 600px) {
   .field {
