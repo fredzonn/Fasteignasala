@@ -28,15 +28,18 @@ async function requests(req, res) {
   const checkin = await selectCheckIns();
   const temp = await selectRequests();
   const id = await selectRequestById();
+  // ids er fylki af id allra fasteigna sem innihalda fyrirspurn.
   const ids = id.map(x => x.house_id);
 
   const dataHouse = [];
+  // Fyllum datahouse fylkið af öllum upplýsingum allra húsanna sem innihalda fyrirspurn.
   for (let i = 0; i < ids.length; i++) {
     // eslint-disable-next-line no-await-in-loop
     dataHouse.push(await selectHouse(ids[i]));
   }
 
   const list = [];
+  // Fyllum list af nöfnum, raðnúmeri og fyrirspurnum þeirra fasteigna sem innihalda fyrirspurnir.
   for (let i = 0; i < temp.length; i++) {
     const k = { name: dataHouse[i].name, house_id: temp[i].house_id, request: temp[i].request };
     list.push(k);

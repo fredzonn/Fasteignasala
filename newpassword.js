@@ -183,6 +183,7 @@ function showErrors(req, res, next) {
  */
 
 async function newPassword(req, res) {
+  // athugum hvort það sé til notandi sem passar við upplýsingarnar
   const user = await findUser({
     email: req.body.email,
     username: req.body.username,
@@ -193,6 +194,7 @@ async function newPassword(req, res) {
     // throw error ef upplýsingar stemmnast ekki
     throw new Error('Upplýsingar eru ekki réttar', req.body.email);
   } else {
+    // annars uppfærum við lykilorð notanda með hashuðu passwordi
     await bcrypt.hash(req.body.password, 10, (err, hash) => {
       updatePassword({
         email: req.body.email,
