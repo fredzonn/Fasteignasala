@@ -513,24 +513,3 @@ height: 21rem;
     overflow-x: auto;
   }
 }
-
-@media (max-width: 400px) {
-
-  .navBar{
-    position: fixed;
-    height: 20rem;
-    width: 75%;
-    bottom: 0;
-    display: flex;
-    margin-left: -2rem;
-  }
-
-  .navBarLogged{
-    position: fixed;
-    height: 2rem;
-    width: 75%;
-    bottom: 0;
-    display: flex;
-    margin-left: -2rem;
-  }
-}
