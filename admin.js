@@ -15,7 +15,7 @@ function catchErrors(fn) {
 }
 
 /**
- * Ósamstilltur route handler fyrir umsóknarlista.
+ * Ósamstilltur route handler fyrir admin síðu.
  *
  * @param {object} req Request hlutur
  * @param {object} res Response hlutur
